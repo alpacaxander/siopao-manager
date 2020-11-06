@@ -1,0 +1,53 @@
+<table [dataSource]="products$ | async" class="mat-elevation-z8" mat-table>
+  <ng-container matColumnDef="name">
+    <th *matHeaderCellDef mat-header-cell> Name</th>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="currency">
+    <th *matHeaderCellDef mat-header-cell> Currency</th>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes.currency }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nation">
+    <th *matHeaderCellDef mat-header-cell> Nation</th>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes.nation }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="era">
+    <th *matHeaderCellDef mat-header-cell> Era</th>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes.era }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="denomination">
+    <th *matHeaderCellDef mat-header-cell> Denomination</th>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes.denomination }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="unit">
+    <th *matHeaderCellDef mat-header-cell> Unit</th>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes.unit }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="coin_count">
+    <th *matHeaderCellDef mat-header-cell> Coins</th>
+    <td *matCellDef="let element" mat-cell> {{ element.relationships.coins.data.length }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="coin_add">
+    <th *matHeaderCellDef mat-header-cell></th>
+    <td *matCellDef="let element" mat-cell>
+      <app-coin-new [product]="element"></app-coin-new>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th *matHeaderCellDef mat-header-cell></th>
+    <td *matCellDef="let element" mat-cell>
+      <app-product-delete [product]="element"></app-product-delete>
+    </td>
+  </ng-container>
+
+  <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+</table>

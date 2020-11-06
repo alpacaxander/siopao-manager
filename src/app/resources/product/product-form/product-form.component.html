@@ -1,0 +1,52 @@
+<div class="product-card">
+  <mat-form-field>
+    <mat-label>Name (Short Hand)</mat-label>
+    <input [(ngModel)]="product.attributes.name"
+           matInput
+           placeholder="Ex. Victorian England Five Pound"
+           value="{{ product?.attributes.name }}">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea [(ngModel)]="product.attributes.description"
+              matInput
+              placeholder="Detailed description of the product"
+              value="{{ product?.attributes.description }}">
+    </textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Currency</mat-label>
+    <input [(ngModel)]="product.attributes.currency"
+           matInput
+           placeholder="Ex. Pound"
+           value="{{ product?.attributes.currency }}">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nation</mat-label>
+    <input [(ngModel)]="product.attributes.nation"
+           matInput
+           placeholder="Ex. England"
+           value="{{ product?.attributes.nation }}">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Era</mat-label>
+    <input [(ngModel)]="product.attributes.era"
+           matInput
+           placeholder="Ex. Victorian"
+           value="{{ product?.attributes.era }}">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Denomination</mat-label>
+    <input [(ngModel)]="product.attributes.denomination"
+           matInput
+           placeholder="Ex. 5, 10"
+           value="{{ product?.attributes.denomination }}">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Unit</mat-label>
+    <input [(ngModel)]="product.attributes.unit"
+           matInput
+           placeholder="Ex. Pound, Pence"
+           value="{{ product?.attributes.unit }}">
+  </mat-form-field>
+</div>

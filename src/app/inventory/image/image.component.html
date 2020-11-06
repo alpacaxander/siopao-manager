@@ -1,0 +1,6 @@
+<input
+  #fileInput
+  (change)="fileChanged($event)" style="display: none"
+  type="file">
+<button (click)="fileInput.click()" mat-button>Select File</button>
+<button (click)="commit()" mat-button>Upload!</button>

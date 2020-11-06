@@ -1,0 +1,19 @@
+#inventory {
+  margin: 50px auto auto;
+  width: 800px;
+
+  #inventory-header {
+    margin: 100px auto auto;
+    height: 50px;
+
+    :last-child {
+      float: right;
+    }
+  }
+
+  #inventory-body {
+    .hidden {
+      visibility: hidden;
+    }
+  }
+}
