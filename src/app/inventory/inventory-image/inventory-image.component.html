@@ -1,0 +1,4 @@
+<app-image-upload></app-image-upload>
+<ng-container *ngFor="let image of images">
+  <img [src]="image.attributes.data">
+</ng-container>

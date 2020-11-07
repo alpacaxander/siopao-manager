@@ -26,7 +26,9 @@ import { ProductDeleteComponent } from './resources/product/product-delete/produ
 import { CoinCardComponent } from './resources/coin/coin-card/coin-card.component'
 import { CoinNewComponent } from './resources/coin/coin-new/coin-new.component'
 import { InventoryCoinComponent } from './inventory/inventory-coin/inventory-coin.component'
-import { ImageComponent } from './inventory/image/image.component'
+import { ImageComponent } from './resources/image/image/image.component'
+import { ImageUploadComponent } from './resources/image/image-upload/image-upload.component'
+import { InventoryImageComponent } from './inventory/inventory-image/inventory-image.component'
 
 @NgModule({
             declarations: [
@@ -41,6 +43,8 @@ import { ImageComponent } from './inventory/image/image.component'
               CoinNewComponent,
               InventoryCoinComponent,
               ImageComponent,
+              ImageUploadComponent,
+              InventoryImageComponent,
             ],
             imports: [
               BrowserModule,
