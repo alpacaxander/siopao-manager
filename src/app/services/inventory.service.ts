@@ -62,11 +62,11 @@ export class InventoryService {
     },
   }
 
-  constructor (private http: HttpClient) {
+  constructor(private http: HttpClient) {
     this._updateProducts()
   }
 
-  private _updateProducts (): void {
+  private _updateProducts(): void {
     this.http.get('http://localhost:8080/api/v1/product').pipe(
       map(
         (response: { data: Product[] }) => {

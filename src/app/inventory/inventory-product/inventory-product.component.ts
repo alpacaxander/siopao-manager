@@ -14,12 +14,12 @@ export class InventoryProductComponent implements OnInit {
 
   displayedColumns = ['name', 'currency', 'nation', 'era', 'denomination', 'unit', 'coin_count', 'coin_add', 'delete']
 
-  constructor (private inventoryService: InventoryService) {
+  constructor(private inventoryService: InventoryService) {
     this.products$ = this.inventoryService.products$
     this.inventoryService.products$.subscribe(console.log)
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
   }
 
 }
