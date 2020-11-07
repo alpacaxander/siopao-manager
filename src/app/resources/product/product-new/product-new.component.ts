@@ -14,17 +14,17 @@ export class ProductNewComponent implements OnInit {
 
   public product: Product
 
-  constructor (
+  constructor(
     private inventoryService: InventoryService,
     private modalService: NgbModal,
   ) {
     this.reset()
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
   }
 
-  open (content): void {
+  open(content): void {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`
     }, (reason) => {
@@ -32,7 +32,7 @@ export class ProductNewComponent implements OnInit {
     })
   }
 
-  private getDismissReason (reason: any): string {
+  private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC'
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -42,13 +42,13 @@ export class ProductNewComponent implements OnInit {
     }
   }
 
-  private send (): void {
+  private send(): void {
     this.inventoryService.new.product$(this.product).then(() => {
       this.reset()
     })
   }
 
-  private reset (): void {
+  private reset(): void {
     // @ts-ignore
     this.product = {
       attributes: {
