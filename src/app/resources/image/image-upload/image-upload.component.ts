@@ -8,7 +8,7 @@ import { ImageService } from '../../../services/image.service'
            })
 export class ImageUploadComponent implements OnInit {
 
-  file: File
+  files: File[]
 
   data: string | ArrayBuffer
 
@@ -17,19 +17,11 @@ export class ImageUploadComponent implements OnInit {
   ngOnInit(): void { }
 
   fileChanged(event): void {
-    this.file = event.target.files[0]
-    console.log(this.file)
+    this.files = event.target.files
   }
 
   commit(): void {
-    this.imageService.create(this.file)
-    //
-    // const reader = new FileReader()
-    // reader.readAsDataURL(this.file)
-    // reader.onload = () => {
-    //   this.data = reader.result;
-    //   console.log(this.data)
-    // }
+    this.imageService.new.files$(this.files)
   }
 
 }
