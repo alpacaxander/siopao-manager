@@ -4,6 +4,8 @@ import { BehaviorSubject, Subject } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Product } from '../resources/product/product'
 import { Coin } from '../resources/coin/coin'
+import { DocumentData } from '../operators/DocumentData'
+import { Document } from './json-api-types/document'
 
 @Injectable({
               providedIn: 'root',
@@ -15,17 +17,18 @@ export class InventoryService {
     product$: (product: Product): void => {
       this.http.delete(
         'http://localhost:8080/api/v1/product/' + product.id,
-      ).subscribe()
+      ).subscribe(() => {this._updateProducts()})
     },
     coin$: (product: Product, coin: Coin): void => {
       this.http.delete(
         'http://localhost:8080/api/v1/product/' + product.id + '/coins/' + coin.id,
-      ).subscribe()
+      ).subscribe(() => {this._updateProducts()})
     },
   }
   public new = {
-    product$: (product: Product): Promise<Product> => {
-      return this.http.post<Product>(
+    product$: (product: Product): Subject<Product> => {
+      const subject = new Subject<Product>()
+      this.http.post<Document<Product>>(
         'http://localhost:8080/api/v1/product',
         {
           data: product,
@@ -36,14 +39,16 @@ export class InventoryService {
           },
         },
       ).pipe(
-        map((data) => {
-          this._updateProducts()
-          return data
-        }),
-      ).toPromise()
+        DocumentData(),
+      ).subscribe((product: Product) => {
+        this._updateProducts()
+        subject.next(product)
+      })
+      return subject
     },
-    coin$: (product: Product, coin: Coin): Promise<Coin> => {
-      return this.http.post<Coin>(
+    coin$: (product: Product, coin: Coin): Subject<Coin> => {
+      const subject = new Subject<Coin>()
+      this.http.post<Document<Coin>>(
         'http://localhost:8080/api/v1/product/' + product.id + '/coins',
         {
           data: coin,
@@ -54,11 +59,14 @@ export class InventoryService {
           },
         },
       ).pipe(
-        map((data) => {
+        DocumentData(),
+      ).subscribe(
+        (coin: Coin) => {
           this._updateProducts()
-          return data
-        }),
-      ).toPromise()
+          subject.next(coin)
+        },
+      )
+      return subject
     },
   }
 

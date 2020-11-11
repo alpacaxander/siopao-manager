@@ -29,6 +29,7 @@ import { InventoryCoinComponent } from './inventory/inventory-coin/inventory-coi
 import { ImageComponent } from './resources/image/image/image.component'
 import { ImageUploadComponent } from './resources/image/image-upload/image-upload.component'
 import { InventoryImageComponent } from './inventory/inventory-image/inventory-image.component'
+import { DocumentDataPipe } from './pipes/DocumentDataPipe'
 
 @NgModule({
             declarations: [
@@ -45,6 +46,7 @@ import { InventoryImageComponent } from './inventory/inventory-image/inventory-i
               ImageComponent,
               ImageUploadComponent,
               InventoryImageComponent,
+              DocumentDataPipe,
             ],
             imports: [
               BrowserModule,

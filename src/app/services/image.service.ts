@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http'
 import { Image } from '../resources/image/image'
 import { BehaviorSubject, Subject } from 'rxjs'
 import { map } from 'rxjs/operators'
+import { DocumentDataPipe } from '../pipes/DocumentDataPipe'
+import { Document } from './json-api-types/document'
+import { DocumentData } from '../operators/DocumentData'
 
 @Injectable({
               providedIn: 'root',
@@ -16,7 +19,7 @@ export class ImageService {
       const reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = () => {
-        this.http.post(
+        this.http.post<Document<Image>>(
           'http://localhost:8081/api/v1/file',
           {
             data: {
@@ -32,10 +35,12 @@ export class ImageService {
               'Content-Type': 'application/vnd.api+json',
             },
           },
+        ).pipe(
+          DocumentData()
         ).subscribe(
-          (data: { data: Image }) => {
+          (image: Image) => {
             this._updateImages()
-            subject.next(data.data)
+            subject.next(image)
           },
         )
       }
@@ -59,7 +64,7 @@ export class ImageService {
     this.http.get(
       'http://localhost:8081/api/v1/file',
     ).pipe(
-      map((response: { data: Image[] }) => response.data),
+      DocumentData()
     ).toPromise().then(
       (images: Image[]) => {
         this.images$.next(images)

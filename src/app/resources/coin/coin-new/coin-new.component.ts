@@ -47,7 +47,7 @@ export class CoinNewComponent implements OnInit {
   }
 
   private send(): void {
-    this.inventoryService.new.coin$(this.product, this.coin).then(() => {
+    this.inventoryService.new.coin$(this.product, this.coin).subscribe(() => {
       this.reset()
     })
   }
