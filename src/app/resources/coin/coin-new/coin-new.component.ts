@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { InventoryService } from '../../../services/inventory.service'
 import { Product } from '../../product/product'
+import { ImageService } from '../../../services/image.service'
 
 @Component({
              selector: 'app-coin-new',
@@ -13,6 +14,8 @@ export class CoinNewComponent implements OnInit {
 
   public closeResult = ''
 
+  public files: File[]
+
   @Input()
   public product: Product
 
@@ -20,6 +23,7 @@ export class CoinNewComponent implements OnInit {
 
   constructor(
     private inventoryService: InventoryService,
+    private imageService: ImageService,
     private modalService: NgbModal,
   ) {
     this.reset()
@@ -47,9 +51,16 @@ export class CoinNewComponent implements OnInit {
   }
 
   private send(): void {
-    this.inventoryService.new.coin$(this.product, this.coin).subscribe(() => {
-      this.reset()
-    })
+    console.log(this.files)
+    this.imageService.new.files$(this.files).forEach(
+      (image$) => {
+        image$.subscribe(
+          (image) => {
+            this.inventoryService.new.coin$(this.product, this.coin).subscribe()
+          },
+        )
+      },
+    )
   }
 
   private reset(): void {

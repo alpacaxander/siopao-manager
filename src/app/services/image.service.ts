@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Image } from '../resources/image/image'
 import { BehaviorSubject, Subject } from 'rxjs'
-import { map } from 'rxjs/operators'
-import { DocumentDataPipe } from '../pipes/DocumentDataPipe'
 import { Document } from './json-api-types/document'
 import { DocumentData } from '../operators/DocumentData'
 
@@ -36,7 +34,7 @@ export class ImageService {
             },
           },
         ).pipe(
-          DocumentData()
+          DocumentData(),
         ).subscribe(
           (image: Image) => {
             this._updateImages()
@@ -64,7 +62,7 @@ export class ImageService {
     this.http.get(
       'http://localhost:8081/api/v1/file',
     ).pipe(
-      DocumentData()
+      DocumentData(),
     ).toPromise().then(
       (images: Image[]) => {
         this.images$.next(images)
