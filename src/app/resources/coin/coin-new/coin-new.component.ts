@@ -14,7 +14,7 @@ export class CoinNewComponent implements OnInit {
 
   public closeResult = ''
 
-  public files: File[]
+  public files: File[] = []
 
   @Input()
   public product: Product
