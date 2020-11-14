@@ -50,9 +50,9 @@ import { DocumentDataPipe } from './pipes/DocumentDataPipe'
             ],
             imports: [
               BrowserModule,
+              BrowserAnimationsModule,
               AppRoutingModule,
               HttpClientModule,
-              BrowserAnimationsModule,
               MatGridListModule,
               MatTableModule,
               MatCardModule,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { BehaviorSubject, Subject } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Product } from '../resources/product/product'
 import { Coin } from '../resources/coin/coin'
@@ -13,6 +13,14 @@ import { Document } from './json-api-types/document'
 export class InventoryService {
 
   public products$: Subject<Product[]> = new BehaviorSubject<Product[]>([])
+  public coins$ = (product: Product): Observable<Coin[]> => {
+    return this.http.get<Document<Coin[]>>(
+      'http://localhost:8080/api/v1/product/' + product.id + '/coins',
+    ).pipe(
+      DocumentData(),
+    )
+  }
+
   public delete = {
     product$: (product: Product): void => {
       this.http.delete(
