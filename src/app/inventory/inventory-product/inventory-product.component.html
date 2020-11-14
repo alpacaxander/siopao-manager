@@ -1,7 +1,7 @@
 <table mat-table
        multiTemplateDataRows
        [dataSource]="products$ | async"
-       class="mat-elevation-z8">
+       class="mat-elevation-z2">
   <ng-container matColumnDef="name">
     <th *matHeaderCellDef mat-header-cell> Name</th>
     <td *matCellDef="let element" mat-cell> {{ element.attributes.name }}</td>
