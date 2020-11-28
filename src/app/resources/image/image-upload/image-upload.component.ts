@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { ImageService } from '../../../services/image.service'
 
 @Component({
              selector: 'app-image-upload',
@@ -8,26 +7,39 @@ import { ImageService } from '../../../services/image.service'
            })
 export class ImageUploadComponent implements OnInit {
 
-  filesValue: File[]
+  // filesValue: any[]
+  //
+  // @Output() filesChange: EventEmitter<File[]> = new EventEmitter<File[]>()
+  //
+  // @Input() get files(): any[] {
+  //   return this.filesValue === null ? [] : this.filesValue
+  // }
+  //
+  // set files(val) {
+  //   this.filesValue = val
+  //   this.filesChange.emit(val)
+  // }
 
-  @Output() filesChange: EventEmitter<File[]> = new EventEmitter<File[]>()
-  data: string | ArrayBuffer
+  bundlesValue: File[][]
 
-  constructor(private imageService: ImageService) { }
+  @Output() bundlesChange: EventEmitter<File[][]> = new EventEmitter<File[][]>()
 
-  @Input() get files(): File[] {
-    return this.filesValue
+  @Input() get bundles(): File[][] {
+    return this.bundlesValue === null ? [] : this.bundlesValue
   }
 
-  set files(val) {
-    this.filesValue = val
-    this.filesChange.emit(val)
+  set bundles(val) {
+    this.bundlesValue = val
+    this.bundlesChange.emit(val)
+  }
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void { }
-
-  fileChanged(event): void {
-    this.files = event.target.files
+  bundleEvent($event) {
+    console.log($event)
+    this.bundles.push($event)
   }
 
 }

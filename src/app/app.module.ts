@@ -30,6 +30,8 @@ import { ImageComponent } from './resources/image/image/image.component'
 import { ImageUploadComponent } from './resources/image/image-upload/image-upload.component'
 import { InventoryImageComponent } from './inventory/inventory-image/inventory-image.component'
 import { DocumentDataPipe } from './pipes/DocumentDataPipe'
+import { DragAndDropDirective } from './directives/drag-and-drop.directive'
+import { ImageDragAndDropComponent } from './resources/image/image-drag-and-drop/image-drag-and-drop.component'
 
 @NgModule({
             declarations: [
@@ -47,6 +49,8 @@ import { DocumentDataPipe } from './pipes/DocumentDataPipe'
               ImageUploadComponent,
               InventoryImageComponent,
               DocumentDataPipe,
+              DragAndDropDirective,
+              ImageDragAndDropComponent,
             ],
             imports: [
               BrowserModule,

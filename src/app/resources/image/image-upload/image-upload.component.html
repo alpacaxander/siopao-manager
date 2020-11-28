@@ -1,6 +1,11 @@
-<input
-  #fileInput
-  (change)="fileChanged($event)" multiple
-  style="display: none"
-  type="file">
-<button (click)="fileInput.click()" mat-button>Select Images</button>
+<app-image-drag-and-drop (bundleEmitter)="bundleEvent($event)">
+
+</app-image-drag-and-drop>
+
+<div id="bundles">
+  <div class="bundle" *ngFor="let bundle of bundles">
+    <div class="file" *ngFor="let file of bundle">
+      {{ file.name }}
+    </div>
+  </div>
+</div>
