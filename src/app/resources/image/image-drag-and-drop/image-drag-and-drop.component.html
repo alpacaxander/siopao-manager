@@ -1,0 +1,5 @@
+<div class="container" appDnd (fileDropped)="filesUploaded($event)">
+  <input type="file" #fileDropRef id="fileDropRef" multiple (change)="filesUploaded($event.target.files)" />
+
+  <mat-icon>cloud_upload</mat-icon>
+</div>

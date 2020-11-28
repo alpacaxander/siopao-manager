@@ -14,7 +14,7 @@ export class CoinNewComponent implements OnInit {
 
   public closeResult = ''
 
-  public files: File[] = []
+  public bundles: File[][] = []
 
   @Input()
   public product: Product
@@ -51,16 +51,18 @@ export class CoinNewComponent implements OnInit {
   }
 
   private send(): void {
-    console.log(this.files)
-    this.imageService.new.files$(this.files).forEach(
-      (image$) => {
-        image$.subscribe(
-          (image) => {
-            this.inventoryService.new.coin$(this.product, this.coin).subscribe()
-          },
-        )
-      },
-    )
+    console.log(this.bundles)
+    for (let bundle of this.bundles) {
+      this.imageService.new.files$(bundle).forEach(
+        (image$) => {
+          image$.subscribe(
+            (image) => {
+              this.inventoryService.new.coin$(this.product, this.coin).subscribe()
+            },
+          )
+        },
+      )
+    }
   }
 
   private reset(): void {
