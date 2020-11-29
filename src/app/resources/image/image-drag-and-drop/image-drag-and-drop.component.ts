@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Image } from '../image'
+import { from, Observable, Subject } from 'rxjs'
+import { combineAll } from 'rxjs/operators'
 
 @Component({
              selector: 'app-image-drag-and-drop',
@@ -7,7 +10,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
            })
 export class ImageDragAndDropComponent implements OnInit {
 
-  @Output() bundleEmitter = new EventEmitter<any[]>()
+  @Output() bundleEmitter = new EventEmitter<Image[]>()
 
   constructor() { }
 
@@ -19,6 +22,39 @@ export class ImageDragAndDropComponent implements OnInit {
    * @param files (Files List)
    */
   filesUploaded(files: any[]) {
-    this.bundleEmitter.emit(files)
+    const observables: Observable<Image>[] = []
+    for (let _i = 0; _i < files.length; _i++) {
+      const file = files[_i]
+      const observable = new Observable<Image>(
+        subscriber => {
+          const reader = new FileReader()
+          reader.readAsDataURL(file)
+          reader.onload = () => {
+            subscriber.next(
+              {
+                type: 'image',
+                id: undefined,
+                attributes: {
+                  index: _i,
+                  name: file.name,
+                  // @ts-ignore
+                  data: reader.result
+                }
+              }
+            )
+            subscriber.complete()
+          }
+        }
+      )
+      observables.push(observable)
+    }
+    from(observables)
+    .pipe(
+      combineAll()
+    ).subscribe(
+      (images: Image[]) => {
+        this.bundleEmitter.emit(images)
+      }
+    )
   }
 }

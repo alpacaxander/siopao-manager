@@ -3,18 +3,28 @@ import { Product } from '../../resources/product/product'
 import { Observable } from 'rxjs'
 import { Coin } from '../../resources/coin/coin'
 import { InventoryService } from '../../services/inventory.service'
+import { animate, state, style, transition, trigger } from '@angular/animations'
 
 @Component({
              selector: 'app-inventory-coin',
              templateUrl: './inventory-coin.component.html',
              styleUrls: ['./inventory-coin.component.scss'],
+             animations: [
+               trigger('detailExpand', [
+                 state('collapsed', style({height: '0px', minHeight: '0'})),
+                 state('expanded', style({height: '*'})),
+                 transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+               ]),
+             ],
            })
 export class InventoryCoinComponent implements OnInit {
 
   @Input()
   product: Product
 
-  coins$: Observable<Coin[]>
+  coins$: Promise<Coin[]>
+
+  expandedElement: Coin | null
 
   displayedColumns = ['status', 'location', 'condition']
 
@@ -22,7 +32,14 @@ export class InventoryCoinComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.coins$ = this.inventoryService.coins$(this.product)
+    this.coins$ = this.inventoryService.product.coins$(this.product)
   }
+
+  // expand(element: Coin) {
+  //   this.expandedElement = this.expandedElement === element ? null : element
+  //   if (this.expandedElement !== null) {
+  //     this.coins$ = this.inventoryService.coins.images$(this.expandedElement)
+  //   }
+  // }
 
 }

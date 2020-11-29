@@ -25,7 +25,7 @@ export class InventoryProductComponent implements OnInit {
   displayedColumns = ['name', 'currency', 'nation', 'era', 'denomination', 'unit', 'coin_count', 'coin_add', 'delete']
 
   constructor(private inventoryService: InventoryService) {
-    this.products$ = this.inventoryService.products$
+    this.products$ = this.inventoryService.product.read$()
   }
 
   ngOnInit(): void {

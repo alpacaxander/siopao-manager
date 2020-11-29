@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Image } from '../image'
 
 @Component({
              selector: 'app-image-upload',
@@ -20,11 +21,11 @@ export class ImageUploadComponent implements OnInit {
   //   this.filesChange.emit(val)
   // }
 
-  bundlesValue: File[][]
+  bundlesValue: Image[][]
 
-  @Output() bundlesChange: EventEmitter<File[][]> = new EventEmitter<File[][]>()
+  @Output() bundlesChange: EventEmitter<Image[][]> = new EventEmitter<Image[][]>()
 
-  @Input() get bundles(): File[][] {
+  @Input() get bundles(): Image[][] {
     return this.bundlesValue === null ? [] : this.bundlesValue
   }
 
@@ -37,7 +38,7 @@ export class ImageUploadComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  bundleEvent($event) {
+  bundleEvent($event: Image[]) {
     console.log($event)
     this.bundles.push($event)
   }
