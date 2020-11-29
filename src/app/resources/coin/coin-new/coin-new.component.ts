@@ -26,11 +26,10 @@ export class CoinNewComponent implements OnInit {
     private inventoryService: InventoryService,
     private imageService: ImageService,
     private modalService: NgbModal,
-  ) {
-    this.reset()
-  }
+  ) { }
 
   ngOnInit(): void {
+    this.reset()
   }
 
   open(content): void {
@@ -52,12 +51,16 @@ export class CoinNewComponent implements OnInit {
   }
 
   private send(): void {
-    console.log(this.bundles)
     for (let bundle of this.bundles) {
-      this.inventoryService.product(this.product).coins(this.coin).create$().then(
+      this.inventoryService.coins.create$(this.coin).then(
         (coin: Coin) => {
           for (const image of bundle) {
-            this.inventoryService.product(this.product).coins(coin).image(image).create$().then()
+            image.relationships = {
+              coin: {
+                data: coin
+              }
+            }
+            this.inventoryService.image.create$(image).then()
           }
         }
       )
@@ -76,6 +79,11 @@ export class CoinNewComponent implements OnInit {
         craigslistLink: '',
         facebookLink: '',
       },
+      relationships: {
+        product: {
+          data: this.product
+        }
+      }
     }
   }
 

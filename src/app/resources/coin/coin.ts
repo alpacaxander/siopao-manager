@@ -1,4 +1,6 @@
-export interface Coin {
+import { Product } from '../product/product'
+
+export class Coin {
   type: 'coin';
   id: string;
 
@@ -12,10 +14,9 @@ export interface Coin {
 
   relationships: {
     product: {
-      data: {
-        type: 'product'
-        id: string,
-      }
+      data: Product
     }
   };
+
+
 }

@@ -18,7 +18,7 @@ export class ProductDeleteComponent implements OnInit {
   }
 
   delete(): void {
-    this.inventoryService.product(this.product).delete$()
+    this.inventoryService.product.delete$(this.product)
   }
 
 }

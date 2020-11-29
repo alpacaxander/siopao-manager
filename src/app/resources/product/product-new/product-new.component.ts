@@ -43,7 +43,7 @@ export class ProductNewComponent implements OnInit {
   }
 
   private send(): void {
-    this.inventoryService.product(this.product).create$().subscribe(() => {
+    this.inventoryService.product.create$(this.product).then(() => {
       this.reset()
     })
   }
