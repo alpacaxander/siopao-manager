@@ -14,10 +14,6 @@ export interface Product {
 
   relationships: {
     coins: {
-      links: {
-        self: string,
-        related: string
-      },
       data: [
         {
           type: 'coins',
@@ -25,8 +21,5 @@ export interface Product {
         }
       ]
     }
-  };
-  links: {
-    self: string
   };
 }

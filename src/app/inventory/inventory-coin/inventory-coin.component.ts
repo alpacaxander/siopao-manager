@@ -22,7 +22,8 @@ export class InventoryCoinComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.coins$ = this.inventoryService.coins$(this.product)
+    // @ts-ignore
+    this.coins$ = this.inventoryService.product(this.product).coins().read$()
   }
 
 }

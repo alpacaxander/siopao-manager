@@ -4,6 +4,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { InventoryService } from '../../../services/inventory.service'
 import { Product } from '../../product/product'
 import { ImageService } from '../../../services/image.service'
+import { Image } from '../../image/image'
 
 @Component({
              selector: 'app-coin-new',
@@ -14,7 +15,7 @@ export class CoinNewComponent implements OnInit {
 
   public closeResult = ''
 
-  public bundles: File[][] = []
+  public bundles: Image[][] = []
 
   @Input()
   public product: Product
@@ -53,14 +54,12 @@ export class CoinNewComponent implements OnInit {
   private send(): void {
     console.log(this.bundles)
     for (let bundle of this.bundles) {
-      this.imageService.new.files$(bundle).forEach(
-        (image$) => {
-          image$.subscribe(
-            (image) => {
-              this.inventoryService.new.coin$(this.product, this.coin).subscribe()
-            },
-          )
-        },
+      this.inventoryService.product(this.product).coins(this.coin).create$().then(
+        (coin: Coin) => {
+          for (const image of bundle) {
+            this.inventoryService.product(this.product).coins(coin).image(image).create$().then()
+          }
+        }
       )
     }
   }

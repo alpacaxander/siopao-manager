@@ -4,8 +4,8 @@
 
 <div id="bundles">
   <div class="bundle" *ngFor="let bundle of bundles">
-    <div class="file" *ngFor="let file of bundle">
-      {{ file.name }}
+    <div class="file" *ngFor="let image of bundle">
+      {{ image.attributes.name }}
     </div>
   </div>
 </div>

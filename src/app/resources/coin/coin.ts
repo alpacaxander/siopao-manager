@@ -12,17 +12,10 @@ export interface Coin {
 
   relationships: {
     product: {
-      links: {
-        self: string,
-        related: string
-      },
       data: {
         type: 'product'
         id: string,
       }
     }
-  };
-  links: {
-    self: string
   };
 }

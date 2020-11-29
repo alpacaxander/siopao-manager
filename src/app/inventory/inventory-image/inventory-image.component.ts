@@ -14,13 +14,6 @@ export class InventoryImageComponent implements OnInit {
   constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
-    console.log('safd')
-    this.imageService.images$.subscribe(
-      (images) => {
-        console.log(images)
-        this.images = images
-      },
-    )
   }
 
 }
