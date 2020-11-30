@@ -39,6 +39,8 @@
     <mat-label>Denomination</mat-label>
     <input [(ngModel)]="product.attributes.denomination"
            matInput
+           type="number"
+           min="0"
            placeholder="Ex. 5, 10"
            value="{{ product?.attributes.denomination }}">
   </mat-form-field>
