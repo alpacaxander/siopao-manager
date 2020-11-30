@@ -19,7 +19,7 @@
     <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
       <div *ngIf="element == expandedElement" class="element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <app-inventory-image [coin]="element"></app-inventory-image>
+        <app-coin-card [coin]="element"></app-coin-card>
       </div>
     </td>
   </ng-container>

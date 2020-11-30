@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
+import { Coin } from '../coin'
+import { InventoryService } from '../../../services/inventory.service'
+import { Image } from '../../image/image'
 
 @Component({
              selector: 'app-coin-card',
@@ -7,10 +10,23 @@ import { Component, OnInit } from '@angular/core'
            })
 export class CoinCardComponent implements OnInit {
 
-  constructor() {
+  @Input()
+  coin: Coin
+
+  images: Image[]
+
+  selected: number
+
+  constructor(private inventoryService: InventoryService) {
   }
 
   ngOnInit(): void {
+    this.selected = 0
+    this.inventoryService.coins.images$(this.coin).then(
+      (images: Image[]) => {
+        this.images = images
+      }
+    )
   }
 
 }
