@@ -4,34 +4,32 @@
     <mat-card-subtitle>{{ coin.attributes.location }}</mat-card-subtitle>
   </mat-card-header>
 
-  <div>
     <ng-container *ngFor="let image of images; let i = index">
       <ng-container *ngIf="selected === i">
 
-        <div id="container">
-          <span class="helper"></span>
+        <div class="image-container">
           <img mat-card-image [src]="image.attributes.data">
         </div>
       </ng-container>
-
     </ng-container>
-  </div>
 
-  <div>
-    <button *ngIf="images?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
-            (click)="selected = ((selected - 2) % images.length) + 1">
-      <mat-icon>navigate_before</mat-icon>
-    </button>
+  <mat-card-content>
+    <div>
+      <button *ngIf="images?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
+              (click)="selected = ((selected - 2) % images.length) + 1">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
 
-    <button class="btn btn-outline-dark" mat-icon-button type="button">
-      <mat-icon>photo_size_select_large</mat-icon>
-    </button>
+      <button class="btn btn-outline-dark" mat-icon-button type="button">
+        <mat-icon>photo_size_select_large</mat-icon>
+      </button>
 
-    <button *ngIf="images?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
-            (click)="selected = (selected + 1) % images.length">
-      <mat-icon>navigate_next</mat-icon>
-    </button>
-  </div>
+      <button *ngIf="images?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
+              (click)="selected = (selected + 1) % images.length">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
 
   <mat-card-actions>
     <button class="btn btn-outline-dark" mat-icon-button type="button">
