@@ -1,11 +1,23 @@
-<app-image-drag-and-drop (bundleEmitter)="bundleEvent($event)">
-
-</app-image-drag-and-drop>
+<div class="container" appDragAndDrop (fileDropped)="filesAppended($event)">
+  <input type="file" multiple (change)="filesAppended($event.target.files)"/>
+  <mat-icon>cloud_upload</mat-icon>
+</div>
 
 <div id="bundles">
-  <div class="bundle" *ngFor="let bundle of bundles">
-    <div class="file" *ngFor="let image of bundle">
-      {{ image.attributes.name }}
+  <div class="bundle" appDragAndDrop (fileDropped)="filesInserted($event, i)" *ngFor="let bundle of bundles; let i = index">
+    <div class="files">
+      <div class="file" *ngFor="let image of bundle">
+        {{ image.attributes.name }}
+      </div>
     </div>
+    <div>
+      <button mat-icon-button>
+        <input type="file" multiple (change)="filesInserted($event.target.files, i)">
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+    </div>
+    <button mat-icon-button class="delete" (click)="delete(i)">
+      <mat-icon>clear</mat-icon>
+    </button>
   </div>
 </div>

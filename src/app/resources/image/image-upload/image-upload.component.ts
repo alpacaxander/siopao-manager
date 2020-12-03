@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Image } from '../image'
+import { from, Observable } from 'rxjs'
+import { combineAll } from 'rxjs/operators'
 
 @Component({
              selector: 'app-image-upload',
@@ -7,19 +9,6 @@ import { Image } from '../image'
              styleUrls: ['./image-upload.component.scss'],
            })
 export class ImageUploadComponent implements OnInit {
-
-  // filesValue: any[]
-  //
-  // @Output() filesChange: EventEmitter<File[]> = new EventEmitter<File[]>()
-  //
-  // @Input() get files(): any[] {
-  //   return this.filesValue === null ? [] : this.filesValue
-  // }
-  //
-  // set files(val) {
-  //   this.filesValue = val
-  //   this.filesChange.emit(val)
-  // }
 
   bundlesValue: Image[][]
 
@@ -38,9 +27,57 @@ export class ImageUploadComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  bundleEvent($event: Image[]) {
-    console.log($event)
-    this.bundles.push($event)
+  filesUploaded$(files: any[]): Observable<Image[]> {
+    const observables: Observable<Image>[] = []
+    for (let _i = 0; _i < files.length; _i++) {
+      const file = files[_i]
+      const observable = new Observable<Image>(
+        subscriber => {
+          const reader = new FileReader()
+          reader.readAsDataURL(file)
+          reader.onload = () => {
+            subscriber.next(
+              {
+                type: 'image',
+                id: undefined,
+                attributes: {
+                  index: _i,
+                  name: file.name,
+                  // @ts-ignore
+                  data: reader.result
+                }
+              }
+            )
+            subscriber.complete()
+          }
+        }
+      )
+      observables.push(observable)
+    }
+    return from(observables)
+    .pipe(
+      combineAll()
+    )
+  }
+
+  filesInserted(files: any[], i: number): void {
+    this.filesUploaded$(files).subscribe(
+      (images: Image[]) => {
+        this.bundles[i].push(...images)
+      }
+    )
+  }
+
+  filesAppended(files: any[]): void {
+    this.filesUploaded$(files).subscribe(
+      (images: Image[]) => {
+        this.bundles.push(images)
+      }
+    )
+  }
+
+  delete(i: number): void {
+    this.bundles.splice(i, 1)
   }
 
 }
