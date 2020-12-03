@@ -31,7 +31,6 @@ import { ImageUploadComponent } from './resources/image/image-upload/image-uploa
 import { InventoryImageComponent } from './inventory/inventory-image/inventory-image.component'
 import { DocumentDataPipe } from './pipes/DocumentDataPipe'
 import { DragAndDropDirective } from './directives/drag-and-drop.directive'
-import { ImageDragAndDropComponent } from './resources/image/image-drag-and-drop/image-drag-and-drop.component'
 import { ImageIconComponent } from './resources/image/image-icon/image-icon.component'
 
 @NgModule({
@@ -51,7 +50,6 @@ import { ImageIconComponent } from './resources/image/image-icon/image-icon.comp
               InventoryImageComponent,
               DocumentDataPipe,
               DragAndDropDirective,
-              ImageDragAndDropComponent,
               ImageIconComponent,
             ],
             imports: [
