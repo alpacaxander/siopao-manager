@@ -27,9 +27,7 @@ export class ImageUploadComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  filesUploaded(files: any[]): void {
-    console.log(this.bundles)
-    console.log(files)
+  filesUploaded$(files: any[]): Observable<Image[]> {
     const observables: Observable<Image>[] = []
     for (let _i = 0; _i < files.length; _i++) {
       const file = files[_i]
@@ -56,10 +54,22 @@ export class ImageUploadComponent implements OnInit {
       )
       observables.push(observable)
     }
-    from(observables)
+    return from(observables)
     .pipe(
       combineAll()
-    ).subscribe(
+    )
+  }
+
+  filesInserted(files: any[], i: number): void {
+    this.filesUploaded$(files).subscribe(
+      (images: Image[]) => {
+        this.bundles[i].push(...images)
+      }
+    )
+  }
+
+  filesAppended(files: any[]): void {
+    this.filesUploaded$(files).subscribe(
       (images: Image[]) => {
         this.bundles.push(images)
       }
