@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { InventoryService } from '../../../services/inventory.service'
 import { Product } from '../../product/product'
-import { ImageService } from '../../../services/image.service'
 import { Image } from '../../image/image'
 
 @Component({
@@ -24,7 +23,6 @@ export class CoinNewComponent implements OnInit {
 
   constructor(
     private inventoryService: InventoryService,
-    private imageService: ImageService,
     private modalService: NgbModal,
   ) { }
 

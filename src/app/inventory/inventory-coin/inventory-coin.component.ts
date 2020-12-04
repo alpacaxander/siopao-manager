@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Product } from '../../resources/product/product'
-import { Observable } from 'rxjs'
 import { Coin } from '../../resources/coin/coin'
 import { InventoryService } from '../../services/inventory.service'
 import { animate, state, style, transition, trigger } from '@angular/animations'
@@ -34,12 +33,5 @@ export class InventoryCoinComponent implements OnInit {
   ngOnInit(): void {
     this.coins$ = this.inventoryService.product.coins$(this.product)
   }
-
-  // expand(element: Coin) {
-  //   this.expandedElement = this.expandedElement === element ? null : element
-  //   if (this.expandedElement !== null) {
-  //     this.coins$ = this.inventoryService.coins.images$(this.expandedElement)
-  //   }
-  // }
 
 }

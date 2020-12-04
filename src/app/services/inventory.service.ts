@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { concat, from, observable, Observable, Subject } from 'rxjs'
-import { combineAll, concatAll, map, mergeAll } from 'rxjs/operators'
+import { BehaviorSubject, from, Observable } from 'rxjs'
+import { combineAll, concatAll, map } from 'rxjs/operators'
 import { Product } from '../resources/product/product'
 import { Coin } from '../resources/coin/coin'
 import { DocumentData } from '../operators/DocumentData'
@@ -13,10 +13,11 @@ import { Image } from '../resources/image/image'
             })
 export class InventoryService {
 
+  private products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([])
+
   // This is definitely a weird way to do it but it is <i>fun</i>
   public product = {
     create$: (product: Product): Promise<Product> => {
-      const subject = new Subject<Product>()
       return this.http.post<Document<Product>>(
         'http://localhost:8080/api/v1/product',
         {
@@ -29,14 +30,11 @@ export class InventoryService {
         },
       ).pipe(
         DocumentData(),
+        this._updateProducts(),
       ).toPromise()
     },
     read$: (): Observable<Product[]> => {
-      return this.http.get<Document<Product[]>>(
-        'http://localhost:8080/api/v1/product',
-      ).pipe(
-        DocumentData(),
-      )
+      return this.products$
     },
     delete$: (product: Product): void => {
       this.http.delete(
@@ -75,10 +73,7 @@ export class InventoryService {
         DocumentData(),
         map(
           (nestedCoin: Coin) => {
-
             nestedCoin.relationships.product.data = coin.relationships.product.data
-            console.log('asdfasdf')
-            console.log(nestedCoin)
             return nestedCoin
           }
         ),
@@ -130,7 +125,6 @@ export class InventoryService {
           (id: string): Observable<Image> => {
             image.id = id
             image.attributes.data = undefined
-            console.log(image)
             return this.http.post<Document<Image>>(
               'http://localhost:8080/api/v1/product/' + image.relationships.coin.data.relationships.product.data.id + '/coins/' + image.relationships.coin.data.id + '/images',
               {
@@ -158,5 +152,27 @@ export class InventoryService {
   }
 
   constructor(private http: HttpClient) {
+    this.http.get<Document<Product[]>>(
+      'http://localhost:8080/api/v1/product',
+    ).pipe(
+      DocumentData(),
+    ).toPromise().then((products: Product[]) => {
+      this.products$.next(products)
+    })
+  }
+
+  private _updateProducts() {
+    return map(
+      (data: any) => {
+        this.http.get<Document<Product[]>>(
+          'http://localhost:8080/api/v1/product',
+        ).pipe(
+          DocumentData(),
+        ).toPromise().then((products: Product[]) => {
+          this.products$.next(products)
+        })
+        return data
+      }
+    )
   }
 }
