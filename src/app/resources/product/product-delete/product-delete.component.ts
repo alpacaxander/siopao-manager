@@ -17,7 +17,8 @@ export class ProductDeleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  delete(): void {
+  delete($event: any): void {
+    $event.stopPropagation();
     this.inventoryService.product.delete$(this.product)
   }
 

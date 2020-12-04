@@ -31,7 +31,8 @@ import { ImageUploadComponent } from './resources/image/image-upload/image-uploa
 import { InventoryImageComponent } from './inventory/inventory-image/inventory-image.component'
 import { DocumentDataPipe } from './pipes/DocumentDataPipe'
 import { DragAndDropDirective } from './directives/drag-and-drop.directive'
-import { ImageIconComponent } from './resources/image/image-icon/image-icon.component'
+import { ImageIconComponent } from './resources/image/image-icon/image-icon.component';
+import { StopPropagationDirective } from './directives/stop-propagation.directive'
 
 @NgModule({
             declarations: [
@@ -51,6 +52,7 @@ import { ImageIconComponent } from './resources/image/image-icon/image-icon.comp
               DocumentDataPipe,
               DragAndDropDirective,
               ImageIconComponent,
+              StopPropagationDirective,
             ],
             imports: [
               BrowserModule,
