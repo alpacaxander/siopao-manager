@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Coin } from '../coin'
 import { InventoryService } from '../../../services/inventory.service'
 import { Image } from '../../image/image'
@@ -13,20 +13,24 @@ export class CoinCardComponent implements OnInit {
   @Input()
   coin: Coin
 
-  images: Image[]
+  @Output()
+  onChange: EventEmitter<void> = new EventEmitter<void>()
 
-  selected: number
+  selected: number = 0
 
   constructor(private inventoryService: InventoryService) {
   }
 
   ngOnInit(): void {
-    this.selected = 0
-    this.inventoryService.coins.images$(this.coin).then(
+    this.inventoryService.read<Image[]>(this.coin.relationships.images.links.related).then(
       (images: Image[]) => {
-        this.images = images
+        this.coin.relationships.images.data = images
       }
     )
+  }
+
+  public update() {
+    this.onChange.emit()
   }
 
 }

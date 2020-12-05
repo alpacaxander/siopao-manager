@@ -19,7 +19,7 @@ export class InventoryImageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.images$ = this.inventoryService.coins.images$(this.coin)
+    // this.images$ = this.inventoryService.coins.images$(this.coin)
   }
 
 }

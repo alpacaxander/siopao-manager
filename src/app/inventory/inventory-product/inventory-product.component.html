@@ -1,70 +1,75 @@
-<table mat-table
-       multiTemplateDataRows
-       [dataSource]="products$ | async"
-       class="mat-elevation-z2">
-  <ng-container matColumnDef="name">
-    <th *matHeaderCellDef mat-header-cell> Name</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.name }}</td>
-  </ng-container>
+<div id="inventory">
+  <div id="inventory-header">
+    <app-product-new (onCreate)="update()"></app-product-new>
+  </div>
+  <table [dataSource]="products"
+         class="mat-elevation-z2"
+         mat-table
+         multiTemplateDataRows>
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell> Name</th>
+      <td *matCellDef="let element" mat-cell> {{ element.attributes?.name }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="currency">
-    <th *matHeaderCellDef mat-header-cell> Currency</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.currency }}</td>
-  </ng-container>
+    <ng-container matColumnDef="currency">
+      <th *matHeaderCellDef mat-header-cell> Currency</th>
+      <td *matCellDef="let element" mat-cell> {{ element.attributes?.currency }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="nation">
-    <th *matHeaderCellDef mat-header-cell> Nation</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.nation }}</td>
-  </ng-container>
+    <ng-container matColumnDef="nation">
+      <th *matHeaderCellDef mat-header-cell> Nation</th>
+      <td *matCellDef="let element" mat-cell> {{ element.attributes?.nation }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="era">
-    <th *matHeaderCellDef mat-header-cell> Era</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.era }}</td>
-  </ng-container>
+    <ng-container matColumnDef="era">
+      <th *matHeaderCellDef mat-header-cell> Era</th>
+      <td *matCellDef="let element" mat-cell> {{ element.attributes?.era }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="denomination">
-    <th *matHeaderCellDef mat-header-cell> Denomination</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.denomination }}</td>
-  </ng-container>
+    <ng-container matColumnDef="denomination">
+      <th *matHeaderCellDef mat-header-cell> Denomination</th>
+      <td *matCellDef="let element" mat-cell> {{ element.attributes?.denomination }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="unit">
-    <th *matHeaderCellDef mat-header-cell> Unit</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.unit }}</td>
-  </ng-container>
+    <ng-container matColumnDef="unit">
+      <th *matHeaderCellDef mat-header-cell> Unit</th>
+      <td *matCellDef="let element" mat-cell> {{ element.attributes?.unit }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="coin_count">
-    <th *matHeaderCellDef mat-header-cell> Coins</th>
-    <td *matCellDef="let element" mat-cell> {{ element.relationships.coins.data.length }} </td>
-  </ng-container>
+    <ng-container matColumnDef="coin_count">
+      <th *matHeaderCellDef mat-header-cell> Coins</th>
+      <td *matCellDef="let element" mat-cell> {{ element.relationships.coins.data.length }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="coin_add">
-    <th *matHeaderCellDef mat-header-cell></th>
-    <td *matCellDef="let element" mat-cell>
-      <app-coin-new [product]="element"></app-coin-new>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="coin_add">
+      <th *matHeaderCellDef mat-header-cell></th>
+      <td *matCellDef="let element" mat-cell>
+        <app-coin-new [product]="element" (onCreate)="update()"></app-coin-new>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="delete">
-    <th *matHeaderCellDef mat-header-cell></th>
-    <td *matCellDef="let element" mat-cell>
-      <app-product-delete [product]="element"></app-product-delete>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="delete">
+      <th *matHeaderCellDef mat-header-cell></th>
+      <td *matCellDef="let element; let i = dataIndex;" mat-cell>
+        <app-product-delete (onDelete)="update()" [product]="products[i]"></app-product-delete>
+      </td>
+    </ng-container>
 
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-      <div class="element-detail"
-           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <app-inventory-coin [product]="element"></app-inventory-coin>
-      </div>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="expandedDetail">
+      <td *matCellDef="let element" [attr.colspan]="displayedColumns.length" mat-cell>
+        <div *ngIf="element == expandedElement" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+             class="element-detail">
+          <app-inventory-coin [(product)]="expandedElement"></app-inventory-coin>
+        </div>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-      class="element-row"
-      [class.expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element">
-  </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-</table>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr (click)="expandedElement = expandedElement === element ? null : element" *matRowDef="let element; columns: displayedColumns;"
+        [class.expanded-row]="expandedElement === element"
+        class="element-row"
+        mat-row>
+    </tr>
+    <tr *matRowDef="let row; columns: ['expandedDetail']" class="detail-row" mat-row></tr>
+  </table>
+</div>

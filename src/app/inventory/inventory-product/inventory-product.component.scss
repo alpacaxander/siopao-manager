@@ -1,24 +1,38 @@
-table {
-  width: 100%;
+#inventory {
+  margin: 50px auto auto;
+  width: 800px;
 
-  tr.element-row:not(.expanded-row):hover {
-    background: whitesmoke;
+  #inventory-header {
+    margin: 100px auto auto;
+    height: 50px;
+
+    :last-child {
+      float: right;
+    }
   }
 
-  tr.element-row:not(.expanded-row):active {
-    background: #efefef;
-  }
+  table {
+    width: 100%;
 
-  .element-row td {
-    border-bottom-width: 0;
-  }
+    tr.element-row:not(.expanded-row):hover {
+      background: whitesmoke;
+    }
 
-  .element-detail {
-    overflow: hidden;
-    display: flex;
-  }
+    tr.element-row:not(.expanded-row):active {
+      background: #efefef;
+    }
 
-  tr.detail-row {
-    height: 0;
+    .element-row td {
+      border-bottom-width: 0;
+    }
+
+    .element-detail {
+      overflow: hidden;
+      display: flex;
+    }
+
+    tr.detail-row {
+      height: 0;
+    }
   }
 }

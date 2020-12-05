@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Product } from '../../resources/product/product'
 import { InventoryService } from '../../services/inventory.service'
-import { Observable } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -18,17 +18,21 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
            })
 export class InventoryProductComponent implements OnInit {
 
-  products$: Observable<Product[]>
+  products: Product[] = []
 
   expandedElement: Product | null
 
   displayedColumns = ['name', 'currency', 'nation', 'era', 'denomination', 'unit', 'coin_count', 'coin_add', 'delete']
 
   constructor(private inventoryService: InventoryService) {
-    this.products$ = this.inventoryService.product.read$()
+    this.inventoryService.products$().then((products: Product[]) => {this.products = products})
   }
 
   ngOnInit(): void {
+  }
+
+  public update(): void {
+    this.inventoryService.products$().then((products: Product[]) => {this.products = products})
   }
 
 }
