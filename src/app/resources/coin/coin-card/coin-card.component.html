@@ -29,6 +29,9 @@
   </mat-card-content>
 
   <mat-card-actions class="actions">
+    <button app-stop-propagation mat-icon-button class="btn btn-outline-dark" type="button">
+      <mat-icon>post_add</mat-icon>
+    </button>
     <app-coin-delete [coin]="coin" (onDelete)="coinChange.emit()"></app-coin-delete>
   </mat-card-actions>
 </mat-card>

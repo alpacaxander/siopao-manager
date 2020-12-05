@@ -41,10 +41,14 @@
       <td *matCellDef="let element" mat-cell> {{ element.relationships.coins.data.length }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="coin_add">
+    <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell></th>
-      <td *matCellDef="let element" mat-cell>
+      <td *matCellDef="let element; let i = dataIndex;" mat-cell app-stop-propagation>
         <app-coin-new [product]="element" (onCreate)="update()"></app-coin-new>
+        <button mat-icon-button class="btn btn-outline-dark" type="button">
+          <mat-icon>post_add</mat-icon>
+        </button>
+        <app-product-delete (onDelete)="update()" [product]="products[i]"></app-product-delete>
       </td>
     </ng-container>
 

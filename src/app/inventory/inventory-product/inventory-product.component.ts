@@ -22,7 +22,7 @@ export class InventoryProductComponent implements OnInit {
 
   expandedElement: Product | null
 
-  displayedColumns = ['name', 'currency', 'nation', 'era', 'denomination', 'unit', 'coin_count', 'coin_add', 'delete']
+  displayedColumns = ['name', 'currency', 'nation', 'era', 'denomination', 'unit', 'coin_count', 'actions']
 
   constructor(private inventoryService: InventoryService) {
     this.inventoryService.products$().then((products: Product[]) => {this.products = products})
