@@ -5,10 +5,8 @@
   #inventory-header {
     margin: 100px auto auto;
     height: 50px;
-
-    :last-child {
-      float: right;
-    }
+    display: flex;
+    justify-content: space-between;
   }
 
   table {

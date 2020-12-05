@@ -20,6 +20,8 @@ export class InventoryProductComponent implements OnInit {
 
   products: Product[] = []
 
+  searchString: string = ''
+
   expandedElement: Product | null
 
   displayedColumns = ['name', 'currency', 'nation', 'era', 'denomination', 'unit', 'coin_count', 'actions']
@@ -32,7 +34,24 @@ export class InventoryProductComponent implements OnInit {
   }
 
   public update(): void {
-    this.inventoryService.products$().then((products: Product[]) => {this.products = products})
+    this.inventoryService.products$().then(
+      (products: Product[]) => {
+        this.products = products
+      }
+    )
+  }
+
+  public search(): void {
+    this.inventoryService.products$().then(
+      (products: Product[]) => {
+        if (this.searchString !== '') {
+          this.products = products.filter(product => product.attributes.name.includes(this.searchString))
+          this.searchString = ''
+        } else {
+          this.products = products
+        }
+      }
+    )
   }
 
 }

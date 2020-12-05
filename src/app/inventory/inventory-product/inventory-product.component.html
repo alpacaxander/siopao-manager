@@ -1,6 +1,20 @@
 <div id="inventory">
   <div id="inventory-header">
-    <app-product-new (onCreate)="update()"></app-product-new>
+    <form (submit)="search()" action="#">
+      <mat-form-field class="example-form-field">
+        <mat-label>Search</mat-label>
+        <input matInput type="text" [(ngModel)]="searchString" name="first">
+        <button class="btn btn-outline-dark" type="button" *ngIf="searchString" matSuffix mat-icon-button aria-label="Search" (click)="search()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+    <div class="right">
+      <button class="btn btn-outline-dark" type="button"  mat-icon-button aria-label="Search" (click)="update()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <app-product-new (onCreate)="update()"></app-product-new>
+    </div>
   </div>
   <table [dataSource]="products"
          class="mat-elevation-z2"
@@ -48,13 +62,6 @@
         <button mat-icon-button class="btn btn-outline-dark" type="button">
           <mat-icon>post_add</mat-icon>
         </button>
-        <app-product-delete (onDelete)="update()" [product]="products[i]"></app-product-delete>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="delete">
-      <th *matHeaderCellDef mat-header-cell></th>
-      <td *matCellDef="let element; let i = dataIndex;" mat-cell>
         <app-product-delete (onDelete)="update()" [product]="products[i]"></app-product-delete>
       </td>
     </ng-container>
