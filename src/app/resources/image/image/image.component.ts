@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { ImageService } from '../../../services/image.service'
 import { Image } from '../image'
 
 @Component({
@@ -12,7 +11,7 @@ export class ImageComponent implements OnInit {
   @Input()
   image: Image
 
-  constructor(private imageService: ImageService) { }
+  constructor() { }
 
   ngOnInit(): void { }
 

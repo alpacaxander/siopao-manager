@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Product } from '../product'
 import { InventoryService } from '../../../services/inventory.service'
+import { Coin } from '../../coin/coin'
 
 @Component({
              selector: 'app-product-delete',
@@ -8,6 +9,8 @@ import { InventoryService } from '../../../services/inventory.service'
              styleUrls: ['./product-delete.component.scss'],
            })
 export class ProductDeleteComponent implements OnInit {
+
+  @Output() onDelete: EventEmitter<Product> = new EventEmitter<Product>()
 
   @Input() product: Product
 
@@ -18,7 +21,7 @@ export class ProductDeleteComponent implements OnInit {
   }
 
   delete(): void {
-    this.inventoryService.product.delete$(this.product)
+    this.inventoryService.delete(this.product.links.self).then(() => {this.onDelete.emit(this.product)})
   }
 
 }

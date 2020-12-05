@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { Product } from '../../resources/product/product'
-import { Observable } from 'rxjs'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
 import { Coin } from '../../resources/coin/coin'
 import { InventoryService } from '../../services/inventory.service'
 import { animate, state, style, transition, trigger } from '@angular/animations'
+import { Product } from '../../resources/product/product'
 
 @Component({
              selector: 'app-inventory-coin',
@@ -19,27 +18,41 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
            })
 export class InventoryCoinComponent implements OnInit {
 
-  @Input()
-  product: Product
+  productValue: Product
 
-  coins$: Promise<Coin[]>
+  @Output() productChange: EventEmitter<Product> = new EventEmitter<Product>()
+
+  @Input() get product(): Product {
+    return this.productValue
+  }
+
+  set product(val) {
+    this.productValue = val
+    this.productChange.emit(val)
+  }
 
   expandedElement: Coin | null
 
-  displayedColumns = ['status', 'location', 'condition']
+  displayedColumns = ['status', 'location', 'condition', 'delete']
 
   constructor(private inventoryService: InventoryService) {
   }
 
   ngOnInit(): void {
-    this.coins$ = this.inventoryService.product.coins$(this.product)
+    this._update()
   }
 
-  // expand(element: Coin) {
-  //   this.expandedElement = this.expandedElement === element ? null : element
-  //   if (this.expandedElement !== null) {
-  //     this.coins$ = this.inventoryService.coins.images$(this.expandedElement)
-  //   }
-  // }
+  private _update(): void {
+    this.inventoryService.read<Coin[]>(
+      this.product.relationships.coins.links.related
+    ).then(
+      (coins: Coin[]) => {
+        this.product.relationships.coins.data = coins
+        for (const coin of coins) {
+          coin.relationships.product.data = this.product
+        }
+      }
+    )
+  }
 
 }

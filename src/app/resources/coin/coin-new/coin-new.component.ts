@@ -1,9 +1,8 @@
 import { Coin } from './../coin'
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { InventoryService } from '../../../services/inventory.service'
 import { Product } from '../../product/product'
-import { ImageService } from '../../../services/image.service'
 import { Image } from '../../image/image'
 
 @Component({
@@ -20,11 +19,13 @@ export class CoinNewComponent implements OnInit {
   @Input()
   public product: Product
 
+  @Output()
+  public onCreate: EventEmitter<void> = new EventEmitter<void>()
+
   public coin: Coin
 
   constructor(
     private inventoryService: InventoryService,
-    private imageService: ImageService,
     private modalService: NgbModal,
   ) { }
 
@@ -52,16 +53,19 @@ export class CoinNewComponent implements OnInit {
 
   private send(): void {
     for (let bundle of this.bundles) {
-      this.inventoryService.coins.create$(this.coin).then(
+      this.inventoryService.create(this.coin).then(
         (coin: Coin) => {
           for (const image of bundle) {
             image.relationships = {
+              // @ts-ignore
               coin: {
                 data: coin
               }
             }
-            this.inventoryService.image.create$(image).then()
+            this.inventoryService.create(image).then()
           }
+          this.reset()
+          this.onCreate.emit()
         }
       )
     }
@@ -80,6 +84,11 @@ export class CoinNewComponent implements OnInit {
         facebookLink: '',
       },
       relationships: {
+        // @ts-ignore
+        images: {
+          data: []
+        },
+        // @ts-ignore
         product: {
           data: this.product
         }

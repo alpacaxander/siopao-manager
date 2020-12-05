@@ -31,27 +31,32 @@ import { ImageUploadComponent } from './resources/image/image-upload/image-uploa
 import { InventoryImageComponent } from './inventory/inventory-image/inventory-image.component'
 import { DocumentDataPipe } from './pipes/DocumentDataPipe'
 import { DragAndDropDirective } from './directives/drag-and-drop.directive'
-import { ImageIconComponent } from './resources/image/image-icon/image-icon.component'
+import { ImageIconComponent } from './resources/image/image-icon/image-icon.component';
+import { StopPropagationDirective } from './directives/stop-propagation.directive';
+import { CoinDeleteComponent } from './resources/coin/coin-delete/coin-delete.component'
 
 @NgModule({
-            declarations: [
-              AppComponent,
-              InventoryComponent,
-              ProductCompactComponent,
-              ProductFormComponent,
-              InventoryProductComponent,
-              ProductNewComponent,
-              ProductDeleteComponent,
-              CoinCardComponent,
-              CoinNewComponent,
-              InventoryCoinComponent,
-              ImageComponent,
-              ImageUploadComponent,
-              InventoryImageComponent,
-              DocumentDataPipe,
-              DragAndDropDirective,
-              ImageIconComponent,
-            ],
+              declarations: [
+                  AppComponent,
+                  InventoryComponent,
+                  ProductCompactComponent,
+                  ProductFormComponent,
+                  InventoryProductComponent,
+                  ProductNewComponent,
+                  ProductDeleteComponent,
+                  CoinCardComponent,
+                  CoinNewComponent,
+                  InventoryCoinComponent,
+                  ImageComponent,
+                  ImageUploadComponent,
+                  InventoryImageComponent,
+                  DocumentDataPipe,
+                  DragAndDropDirective,
+                  ImageIconComponent,
+                  StopPropagationDirective,
+                  CoinDeleteComponent,
+                  InventoryProductComponent,
+              ],
             imports: [
               BrowserModule,
               BrowserAnimationsModule,

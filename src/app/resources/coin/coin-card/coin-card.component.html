@@ -1,39 +1,34 @@
 <mat-card class="coin-card">
   <mat-card-header>
-    <mat-card-title>{{ coin.relationships.product.data.attributes.name }}</mat-card-title>
+    <mat-card-title>{{ coin.relationships.product.data.attributes?.name }}</mat-card-title>
     <mat-card-subtitle>{{ coin.attributes.location }}</mat-card-subtitle>
   </mat-card-header>
 
-    <ng-container *ngFor="let image of images; let i = index">
+    <ng-container *ngFor="let image of coin.relationships.images?.data; let i = index">
       <ng-container *ngIf="selected === i">
-
         <div class="image-container">
-          <img mat-card-image [src]="image.attributes.data">
+          <img mat-card-image [src]="image.attributes?.data">
         </div>
       </ng-container>
     </ng-container>
 
-  <mat-card-content>
-    <div>
-      <button *ngIf="images?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
-              (click)="selected = ((selected - 2) % images.length) + 1">
-        <mat-icon>navigate_before</mat-icon>
-      </button>
+  <mat-card-content class="content">
+    <button *ngIf="coin.relationships.images?.data?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
+            (click)="selected = ((selected - 2) % coin.relationships.images.data.length) + 1">
+      <mat-icon>navigate_before</mat-icon>
+    </button>
 
-      <button class="btn btn-outline-dark" mat-icon-button type="button">
-        <mat-icon>photo_size_select_large</mat-icon>
-      </button>
+    <button class="btn btn-outline-dark" mat-icon-button type="button">
+      <mat-icon>photo_size_select_large</mat-icon>
+    </button>
 
-      <button *ngIf="images?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
-              (click)="selected = (selected + 1) % images.length">
-        <mat-icon>navigate_next</mat-icon>
-      </button>
-    </div>
+    <button *ngIf="coin.relationships.images?.data?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
+            (click)="selected = (selected + 1) % coin.relationships.images?.data.length">
+      <mat-icon>navigate_next</mat-icon>
+    </button>
   </mat-card-content>
 
-  <mat-card-actions>
-    <button class="btn btn-outline-dark" mat-icon-button type="button">
-      <mat-icon>delete_forever</mat-icon>
-    </button>
+  <mat-card-actions class="actions">
+    <app-coin-delete [coin]="coin" (onDelete)="update()"></app-coin-delete>
   </mat-card-actions>
 </mat-card>

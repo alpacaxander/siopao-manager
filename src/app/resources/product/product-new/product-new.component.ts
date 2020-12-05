@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { InventoryService } from '../../../services/inventory.service'
 import { Product } from '../product'
+import { PrimaryData } from '../../../services/json-api-types/primary-data'
 
 @Component({
              selector: 'app-product-new',
@@ -9,6 +10,9 @@ import { Product } from '../product'
              styleUrls: ['./product-new.component.scss'],
            })
 export class ProductNewComponent implements OnInit {
+
+  @Output()
+  public onCreate: EventEmitter<Product> = new EventEmitter<Product>()
 
   public closeResult = ''
 
@@ -43,14 +47,19 @@ export class ProductNewComponent implements OnInit {
   }
 
   private send(): void {
-    this.inventoryService.product.create$(this.product).then(() => {
-      this.reset()
-    })
+    this.inventoryService.create(this.product).then(
+      (product: Product) => {
+        this.onCreate.emit(product)
+        this.reset()
+      }
+    )
   }
 
   private reset(): void {
     // @ts-ignore
     this.product = {
+      type: 'product',
+      id: '',
       attributes: {
         name: '',
         description: '',
@@ -60,8 +69,6 @@ export class ProductNewComponent implements OnInit {
         denomination: 0,
         unit: '',
       },
-      id: '',
-      type: 'product',
     }
   }
 }

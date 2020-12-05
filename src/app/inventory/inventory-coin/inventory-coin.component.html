@@ -1,25 +1,31 @@
 <table mat-table
        multiTemplateDataRows
-       [dataSource]="coins$ | async"
+       [dataSource]="product.relationships.coins.data"
        class="mat-elevation-z2">
   <ng-container matColumnDef="status">
     <th *matHeaderCellDef mat-header-cell> Status</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.status }}</td>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes?.status }}</td>
   </ng-container>
   <ng-container matColumnDef="location">
     <th *matHeaderCellDef mat-header-cell> Location</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.location }}</td>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes?.location }}</td>
   </ng-container>
   <ng-container matColumnDef="condition">
     <th *matHeaderCellDef mat-header-cell> Condition</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes.condition }}</td>
+    <td *matCellDef="let element" mat-cell> {{ element.attributes?.condition }}</td>
+  </ng-container>
+  <ng-container matColumnDef="delete">
+    <th *matHeaderCellDef mat-header-cell> Delete</th>
+    <td *matCellDef="let element; let i = dataIndex;" mat-cell>
+      <app-coin-delete [coin]="product.relationships.coins.data[i]" (onDelete)="_update()"></app-coin-delete>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
       <div *ngIf="element == expandedElement" class="element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <app-coin-card [coin]="element"></app-coin-card>
+        <app-coin-card [coin]="expandedElement" (onChange)="_update()"></app-coin-card>
       </div>
     </td>
   </ng-container>
