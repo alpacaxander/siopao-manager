@@ -1,41 +1,5 @@
-<table mat-table
-       multiTemplateDataRows
-       [dataSource]="product.relationships.coins.data"
-       class="mat-elevation-z2">
-  <ng-container matColumnDef="status">
-    <th *matHeaderCellDef mat-header-cell> Status</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes?.status }}</td>
-  </ng-container>
-  <ng-container matColumnDef="location">
-    <th *matHeaderCellDef mat-header-cell> Location</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes?.location }}</td>
-  </ng-container>
-  <ng-container matColumnDef="condition">
-    <th *matHeaderCellDef mat-header-cell> Condition</th>
-    <td *matCellDef="let element" mat-cell> {{ element.attributes?.condition }}</td>
-  </ng-container>
-  <ng-container matColumnDef="delete">
-    <th *matHeaderCellDef mat-header-cell> Delete</th>
-    <td *matCellDef="let element; let i = dataIndex;" mat-cell>
-      <app-coin-delete [coin]="product.relationships.coins.data[i]" (onDelete)="_update()"></app-coin-delete>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-      <div *ngIf="element == expandedElement" class="element-detail"
-           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <app-coin-card [coin]="expandedElement" (onChange)="_update()"></app-coin-card>
-      </div>
-    </td>
-  </ng-container>
-
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-      class="element-row"
-      [class.expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element">
-  </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-</table>
+<div class="inventory-coin">
+  <div class="coin-card" *ngFor="let coin of product.relationships.coins.data">
+    <app-coin-card [coin]="coin" (coinChange)="_update()"></app-coin-card>
+  </div>
+</div>
