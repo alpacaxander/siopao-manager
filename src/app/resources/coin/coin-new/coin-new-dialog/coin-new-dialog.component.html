@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>New Coin for {{ product.attributes.name }}</h2>
+<mat-dialog-content class="content">
+  <app-image-upload [(bundles)]="bundles"></app-image-upload>
+  <mat-form-field appearance="fill">
+    <mat-label>Condition</mat-label>
+    <mat-select [formControl]="conditionFormControl">
+      <mat-option style="z-index: 10000" *ngFor="let condition of conditionEnum" [value]="condition">{{ condition }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Status</mat-label>
+    <mat-select [formControl]="statusFormControl">
+      <mat-option style="z-index: 10000" *ngFor="let status of statusEnum" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Location</mat-label>
+    <input [(ngModel)]="location"
+           matInput
+           placeholder="Ex. bin 37"
+           value="{{ location }}">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-dialog-close mat-icon-button (click)="send()" class="btn btn-outline-dark" type="button">
+    <mat-icon>send</mat-icon>
+  </button>
+</mat-dialog-actions>
