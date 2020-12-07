@@ -18,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatListModule } from '@Angular/material/list'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { InventoryProductComponent } from './inventory/inventory-product/inventory-product.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { ProductNewComponent } from './resources/product/product-new/product-new.component'
@@ -31,32 +31,38 @@ import { ImageUploadComponent } from './resources/image/image-upload/image-uploa
 import { InventoryImageComponent } from './inventory/inventory-image/inventory-image.component'
 import { DocumentDataPipe } from './pipes/DocumentDataPipe'
 import { DragAndDropDirective } from './directives/drag-and-drop.directive'
-import { ImageIconComponent } from './resources/image/image-icon/image-icon.component';
-import { StopPropagationDirective } from './directives/stop-propagation.directive';
+import { ImageIconComponent } from './resources/image/image-icon/image-icon.component'
+import { StopPropagationDirective } from './directives/stop-propagation.directive'
 import { CoinDeleteComponent } from './resources/coin/coin-delete/coin-delete.component'
+import { MatSelectModule } from '@angular/material/select'
+import { MatDialogModule } from '@angular/material/dialog'
+import { CoinNewDialogComponent } from './resources/coin/coin-new/coin-new-dialog/coin-new-dialog.component'
+import { ProductNewDialogComponent } from './resources/product/product-new/product-new-dialog/product-new-dialog.component'
 
 @NgModule({
-              declarations: [
-                  AppComponent,
-                  InventoryComponent,
-                  ProductCompactComponent,
-                  ProductFormComponent,
-                  InventoryProductComponent,
-                  ProductNewComponent,
-                  ProductDeleteComponent,
-                  CoinCardComponent,
-                  CoinNewComponent,
-                  InventoryCoinComponent,
-                  ImageComponent,
-                  ImageUploadComponent,
-                  InventoryImageComponent,
-                  DocumentDataPipe,
-                  DragAndDropDirective,
-                  ImageIconComponent,
-                  StopPropagationDirective,
-                  CoinDeleteComponent,
-                  InventoryProductComponent,
-              ],
+            declarations: [
+              AppComponent,
+              InventoryComponent,
+              ProductCompactComponent,
+              ProductFormComponent,
+              InventoryProductComponent,
+              ProductNewComponent,
+              ProductDeleteComponent,
+              CoinCardComponent,
+              CoinNewComponent,
+              InventoryCoinComponent,
+              ImageComponent,
+              ImageUploadComponent,
+              InventoryImageComponent,
+              DocumentDataPipe,
+              DragAndDropDirective,
+              ImageIconComponent,
+              StopPropagationDirective,
+              CoinDeleteComponent,
+              InventoryProductComponent,
+              CoinNewDialogComponent,
+              ProductNewDialogComponent,
+            ],
             imports: [
               BrowserModule,
               BrowserAnimationsModule,
@@ -74,6 +80,9 @@ import { CoinDeleteComponent } from './resources/coin/coin-delete/coin-delete.co
               MatListModule,
               NgbModule,
               FormsModule,
+              MatSelectModule,
+              ReactiveFormsModule,
+              MatDialogModule,
             ],
             providers: [],
             bootstrap: [AppComponent],

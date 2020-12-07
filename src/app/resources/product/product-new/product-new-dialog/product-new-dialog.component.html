@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>New Product</h2>
+<mat-dialog-content class="content">
+  <app-product-form [(product)]="product"></app-product-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-dialog-close mat-icon-button (click)="send()" class="btn btn-outline-dark" type="button">
+    <mat-icon>send</mat-icon>
+  </button>
+</mat-dialog-actions>
