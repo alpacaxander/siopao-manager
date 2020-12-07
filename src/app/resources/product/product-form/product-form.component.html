@@ -6,6 +6,7 @@
            placeholder="Ex. Victorian England Five Pound"
            value="{{ product?.attributes.name }}">
   </mat-form-field>
+  <br>
   <mat-form-field>
     <mat-label>Description</mat-label>
     <textarea [(ngModel)]="product.attributes.description"
@@ -14,6 +15,7 @@
               value="{{ product?.attributes.description }}">
     </textarea>
   </mat-form-field>
+  <br>
   <mat-form-field>
     <mat-label>Currency</mat-label>
     <input [(ngModel)]="product.attributes.currency"
@@ -21,6 +23,7 @@
            placeholder="Ex. Pound"
            value="{{ product?.attributes.currency }}">
   </mat-form-field>
+  <br>
   <mat-form-field>
     <mat-label>Nation</mat-label>
     <input [(ngModel)]="product.attributes.nation"
@@ -28,6 +31,7 @@
            placeholder="Ex. England"
            value="{{ product?.attributes.nation }}">
   </mat-form-field>
+  <br>
   <mat-form-field>
     <mat-label>Era</mat-label>
     <input [(ngModel)]="product.attributes.era"
@@ -35,6 +39,7 @@
            placeholder="Ex. Victorian"
            value="{{ product?.attributes.era }}">
   </mat-form-field>
+  <br>
   <mat-form-field>
     <mat-label>Denomination</mat-label>
     <input [(ngModel)]="product.attributes.denomination"
@@ -44,6 +49,7 @@
            placeholder="Ex. 5, 10"
            value="{{ product?.attributes.denomination }}">
   </mat-form-field>
+  <br>
   <mat-form-field>
     <mat-label>Unit</mat-label>
     <input [(ngModel)]="product.attributes.unit"

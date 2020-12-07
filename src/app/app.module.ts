@@ -37,6 +37,7 @@ import { CoinDeleteComponent } from './resources/coin/coin-delete/coin-delete.co
 import { MatSelectModule } from '@angular/material/select'
 import { MatDialogModule } from '@angular/material/dialog'
 import { CoinNewDialogComponent } from './resources/coin/coin-new/coin-new-dialog/coin-new-dialog.component'
+import { ProductNewDialogComponent } from './resources/product/product-new/product-new-dialog/product-new-dialog.component'
 
 @NgModule({
             declarations: [
@@ -60,6 +61,7 @@ import { CoinNewDialogComponent } from './resources/coin/coin-new/coin-new-dialo
               CoinDeleteComponent,
               InventoryProductComponent,
               CoinNewDialogComponent,
+              ProductNewDialogComponent,
             ],
             imports: [
               BrowserModule,

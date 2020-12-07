@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core'
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core'
+import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Coin } from '../../coin'
 import { Image } from '../../../image/image'
 import { Product } from '../../../product/product'
