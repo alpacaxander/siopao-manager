@@ -1,5 +1,5 @@
 <div class="inventory-coin">
-  <div class="coin-card" *ngFor="let coin of product.relationships.coins.data">
-    <app-coin-card [coin]="coin" (coinChange)="_update()"></app-coin-card>
+  <div *ngFor="let coin of product.relationships.coins.data" class="coin-card">
+    <app-coin-card (coinChange)="_update()" [coin]="coin"></app-coin-card>
   </div>
 </div>

@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Inject, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnInit } from '@angular/core'
 import { Product } from '../../product'
 import { InventoryService } from '../../../../services/inventory.service'
 
 @Component({
-  selector: 'app-product-new-dialog',
-  templateUrl: './product-new-dialog.component.html',
-  styleUrls: ['./product-new-dialog.component.scss']
-})
+             selector: 'app-product-new-dialog',
+             templateUrl: './product-new-dialog.component.html',
+             styleUrls: ['./product-new-dialog.component.scss'],
+           })
 export class ProductNewDialogComponent implements OnInit {
 
   public onCreate: EventEmitter<void> = new EventEmitter<void>()
@@ -36,7 +36,7 @@ export class ProductNewDialogComponent implements OnInit {
     this.inventoryService.create(this.product).then(
       (product: Product) => {
         this.onCreate.emit()
-      }
+      },
     )
   }
 }

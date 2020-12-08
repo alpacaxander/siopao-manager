@@ -22,6 +22,7 @@ export class ImageUploadComponent implements OnInit {
     this.bundlesValue = val
     this.bundlesChange.emit(val)
   }
+
   constructor() { }
 
   ngOnInit(): void {
@@ -44,19 +45,19 @@ export class ImageUploadComponent implements OnInit {
                   index: _i,
                   name: file.name,
                   // @ts-ignore
-                  data: reader.result
-                }
-              }
+                  data: reader.result,
+                },
+              },
             )
             subscriber.complete()
           }
-        }
+        },
       )
       observables.push(observable)
     }
     return from(observables)
     .pipe(
-      combineAll()
+      combineAll(),
     )
   }
 
@@ -64,7 +65,7 @@ export class ImageUploadComponent implements OnInit {
     this.filesUploaded$(files).subscribe(
       (images: Image[]) => {
         this.bundles[i].push(...images)
-      }
+      },
     )
   }
 
@@ -72,7 +73,7 @@ export class ImageUploadComponent implements OnInit {
     this.filesUploaded$(files).subscribe(
       (images: Image[]) => {
         this.bundles.push(images)
-      }
+      },
     )
   }
 

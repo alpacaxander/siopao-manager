@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Product } from '../product'
 import { InventoryService } from '../../../services/inventory.service'
-import { Coin } from '../../coin/coin'
 
 @Component({
              selector: 'app-product-delete',
