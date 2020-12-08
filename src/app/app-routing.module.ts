@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { InventoryComponent } from './inventory/inventory.component'
+import { InventoryProductComponent } from './inventory/inventory-product/inventory-product.component'
 
 const routes: Routes = [
   {
-    path: '',
+    path: '**',
     redirectTo: '/inventory',
     pathMatch: 'full',
   },
   {
     path: 'inventory',
-    component: InventoryComponent,
+    component: InventoryProductComponent,
   },
 ]
 

@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { InventoryComponent } from './inventory/inventory.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTableModule } from '@angular/material/table'
@@ -28,7 +27,6 @@ import { CoinNewComponent } from './resources/coin/coin-new/coin-new.component'
 import { InventoryCoinComponent } from './inventory/inventory-coin/inventory-coin.component'
 import { ImageComponent } from './resources/image/image/image.component'
 import { ImageUploadComponent } from './resources/image/image-upload/image-upload.component'
-import { InventoryImageComponent } from './inventory/inventory-image/inventory-image.component'
 import { DocumentDataPipe } from './pipes/DocumentDataPipe'
 import { DragAndDropDirective } from './directives/drag-and-drop.directive'
 import { ImageIconComponent } from './resources/image/image-icon/image-icon.component'
@@ -42,7 +40,6 @@ import { ProductNewDialogComponent } from './resources/product/product-new/produ
 @NgModule({
             declarations: [
               AppComponent,
-              InventoryComponent,
               ProductCompactComponent,
               ProductFormComponent,
               InventoryProductComponent,
@@ -53,7 +50,6 @@ import { ProductNewDialogComponent } from './resources/product/product-new/produ
               InventoryCoinComponent,
               ImageComponent,
               ImageUploadComponent,
-              InventoryImageComponent,
               DocumentDataPipe,
               DragAndDropDirective,
               ImageIconComponent,
