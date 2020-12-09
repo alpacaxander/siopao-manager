@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
@@ -34,6 +34,13 @@ import { ProductDeleteComponent } from './resources/product/product-delete/produ
 import { DocumentDataPipe } from './pipes/DocumentDataPipe'
 import { DragAndDropDirective } from './directives/drag-and-drop.directive'
 import { StopPropagationDirective } from './directives/stop-propagation.directive'
+import { ConfigService } from './services/config.service'
+
+const appInitializerFactory = (configService: ConfigService) => {
+  return () => {
+    return configService.loadConfig()
+  }
+}
 
 @NgModule({
             declarations: [
@@ -76,7 +83,15 @@ import { StopPropagationDirective } from './directives/stop-propagation.directiv
               ReactiveFormsModule,
               MatDialogModule,
             ],
-            providers: [],
+            providers: [
+              ConfigService,
+              {
+                provide: APP_INITIALIZER,
+                useFactory: appInitializerFactory,
+                multi: true,
+                deps: [ConfigService],
+              }
+            ],
             bootstrap: [AppComponent],
           })
 export class AppModule {
