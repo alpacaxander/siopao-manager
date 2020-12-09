@@ -3,14 +3,15 @@
     <form (submit)="search()" action="#">
       <mat-form-field class="example-form-field">
         <mat-label>Search</mat-label>
-        <input matInput type="text" [(ngModel)]="searchString" name="first">
-        <button class="btn btn-outline-dark" type="button" *ngIf="searchString" matSuffix mat-icon-button aria-label="Search" (click)="search()">
+        <input [(ngModel)]="searchString" matInput name="first" type="text">
+        <button (click)="search()" *ngIf="searchString" aria-label="Search" class="btn btn-outline-dark" mat-icon-button
+                matSuffix type="button">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
     </form>
     <div class="right">
-      <button class="btn btn-outline-dark" type="button"  mat-icon-button aria-label="Search" (click)="update()">
+      <button (click)="update()" aria-label="Search" class="btn btn-outline-dark" mat-icon-button type="button">
         <mat-icon>refresh</mat-icon>
       </button>
       <app-product-new (onCreate)="update()"></app-product-new>
@@ -57,9 +58,9 @@
 
     <ng-container matColumnDef="actions">
       <th *matHeaderCellDef mat-header-cell></th>
-      <td *matCellDef="let element; let i = dataIndex;" mat-cell app-stop-propagation>
-        <app-coin-new [product]="element" (onCreate)="update()"></app-coin-new>
-        <button mat-icon-button class="btn btn-outline-dark" type="button">
+      <td *matCellDef="let element; let i = dataIndex;" app-stop-propagation mat-cell>
+        <app-coin-new (onCreate)="update()" [product]="element"></app-coin-new>
+        <button class="btn btn-outline-dark" mat-icon-button type="button">
           <mat-icon>post_add</mat-icon>
         </button>
         <app-product-delete (onDelete)="update()" [product]="products[i]"></app-product-delete>
@@ -76,7 +77,8 @@
     </ng-container>
 
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-    <tr (click)="expandedElement = expandedElement === element ? null : element" *matRowDef="let element; columns: displayedColumns;"
+    <tr (click)="expandedElement = expandedElement === element ? null : element"
+        *matRowDef="let element; columns: displayedColumns;"
         [class.expanded-row]="expandedElement === element"
         class="element-row"
         mat-row>

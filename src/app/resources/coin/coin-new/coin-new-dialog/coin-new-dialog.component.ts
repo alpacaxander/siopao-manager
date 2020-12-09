@@ -7,17 +7,24 @@ import { FormControl } from '@angular/forms'
 import { InventoryService } from '../../../../services/inventory.service'
 
 @Component({
-  selector: 'app-coin-new-dialog',
-  templateUrl: './coin-new-dialog.component.html',
-  styleUrls: ['./coin-new-dialog.component.scss']
-})
+             selector: 'app-coin-new-dialog',
+             templateUrl: './coin-new-dialog.component.html',
+             styleUrls: ['./coin-new-dialog.component.scss'],
+           })
 export class CoinNewDialogComponent implements OnInit {
 
   public conditionFormControl = new FormControl()
-  public conditionEnum: string[] = ['Good', 'Great'];
+  public conditionEnum: string[] = ['Good', 'Great']
 
   public statusFormControl = new FormControl()
-  public statusEnum: string[] = ['Ordered from vendor', 'In Stock (unprocessed)', 'In Stock', 'Sold', 'Dropped off for delivery', 'Delivered'];
+  public statusEnum: string[] = [
+    'Ordered from vendor',
+    'In Stock (unprocessed)',
+    'In Stock',
+    'Sold',
+    'Dropped off for delivery',
+    'Delivered',
+  ]
 
   public location
 
@@ -28,7 +35,7 @@ export class CoinNewDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public product: Product,
     private inventoryService: InventoryService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
   }
@@ -47,23 +54,23 @@ export class CoinNewDialogComponent implements OnInit {
           relationships: {
             // @ts-ignore
             product: {
-              data: this.product
-            }
-          }
-        }
+              data: this.product,
+            },
+          },
+        },
       ).then(
         (coin: Coin) => {
           for (const image of bundle) {
             image.relationships = {
               // @ts-ignore
               coin: {
-                data: coin
-              }
+                data: coin,
+              },
             }
             this.inventoryService.create(image).then()
           }
           this.onCreate.emit()
-        }
+        },
       )
     }
   }

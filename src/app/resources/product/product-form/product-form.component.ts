@@ -12,9 +12,6 @@ export class ProductFormComponent implements OnInit {
 
   @Output() productChange: EventEmitter<Product> = new EventEmitter<Product>()
 
-  constructor() {
-  }
-
   @Input() get product(): Product {
     return this.productValue
   }
@@ -22,6 +19,9 @@ export class ProductFormComponent implements OnInit {
   set product(val) {
     this.productValue = val
     this.productChange.emit(val)
+  }
+
+  constructor() {
   }
 
   ngOnInit(): void {

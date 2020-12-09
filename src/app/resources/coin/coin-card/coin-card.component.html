@@ -1,4 +1,4 @@
-<mat-card class="coin-card" *ngIf="coin.relationships">
+<mat-card *ngIf="coin.relationships" class="coin-card">
   <mat-card-header>
     <mat-card-title>{{ coin.relationships.product.data.attributes?.name }}</mat-card-title>
     <mat-card-subtitle>{{ coin.attributes.location }}</mat-card-subtitle>
@@ -7,14 +7,15 @@
   <ng-container *ngFor="let image of coin.relationships.images?.data; let i = index">
     <ng-container *ngIf="selected === i">
       <div class="image-container">
-        <img mat-card-image [src]="image.attributes?.data">
+        <img [src]="image.attributes?.data" mat-card-image>
       </div>
     </ng-container>
   </ng-container>
 
   <mat-card-content class="content">
-    <button *ngIf="coin.relationships.images?.data?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
-            (click)="selected = ((selected - 2) % coin.relationships.images.data.length) + 1">
+    <button (click)="selected = ((selected - 2) % coin.relationships.images.data.length) + 1" *ngIf="coin.relationships.images?.data?.length > 1" class="btn btn-outline-dark"
+            mat-icon-button
+            type="button">
       <mat-icon>navigate_before</mat-icon>
     </button>
 
@@ -22,16 +23,17 @@
       <mat-icon>photo_size_select_large</mat-icon>
     </button>
 
-    <button *ngIf="coin.relationships.images?.data?.length > 1" class="btn btn-outline-dark" mat-icon-button type="button"
-            (click)="selected = (selected + 1) % coin.relationships.images?.data.length">
+    <button (click)="selected = (selected + 1) % coin.relationships.images?.data.length" *ngIf="coin.relationships.images?.data?.length > 1" class="btn btn-outline-dark"
+            mat-icon-button
+            type="button">
       <mat-icon>navigate_next</mat-icon>
     </button>
   </mat-card-content>
 
   <mat-card-actions class="actions">
-    <button app-stop-propagation mat-icon-button class="btn btn-outline-dark" type="button">
+    <button app-stop-propagation class="btn btn-outline-dark" mat-icon-button type="button">
       <mat-icon>post_add</mat-icon>
     </button>
-    <app-coin-delete [coin]="coin" (onDelete)="coinChange.emit()"></app-coin-delete>
+    <app-coin-delete (onDelete)="coinChange.emit()" [coin]="coin"></app-coin-delete>
   </mat-card-actions>
 </mat-card>

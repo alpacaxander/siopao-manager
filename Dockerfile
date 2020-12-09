@@ -1,4 +1,4 @@
-FROM node:10 AS builder
+FROM node:15 AS NODE_BUILDER
 
 WORKDIR /opt/ng
 COPY package.json ./
@@ -9,7 +9,8 @@ ENV PATH="./node_modules/.bin:$PATH"
 COPY . ./
 RUN ng build
 
-FROM nginx:1 AS deployment
+FROM alexanderpaulsell/frontend-eureka-client:version-1.0.0
 
-COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=compile-image /opt/ng/dist/manager /usr/share/nginx/html
+COPY --from=NODE_BUILDER opt/ng/dist/manager /files
+
+ENV SPRING_APPLICATION_NAME=manager

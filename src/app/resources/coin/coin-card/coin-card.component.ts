@@ -13,6 +13,7 @@ export class CoinCardComponent implements OnInit, OnChanges {
   coinValue: Coin
 
   @Output() coinChange: EventEmitter<Coin> = new EventEmitter<Coin>()
+  selected: number = 0
 
   @Input() get coin(): Coin {
     return this.coinValue
@@ -21,8 +22,6 @@ export class CoinCardComponent implements OnInit, OnChanges {
   set coin(val) {
     this.coinValue = val
   }
-
-  selected: number = 0
 
   constructor(private inventoryService: InventoryService) {
   }
@@ -35,7 +34,7 @@ export class CoinCardComponent implements OnInit, OnChanges {
       this.inventoryService.read<Image[]>(this.coin.relationships.images.links.related).then(
         (images: Image[]) => {
           this.coin.relationships.images.data = images
-        }
+        },
       )
     }
   }

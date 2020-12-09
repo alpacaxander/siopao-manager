@@ -6,7 +6,7 @@ import { Document } from './json-api-types/document'
 import { Image } from '../resources/image/image'
 import { PrimaryData } from './json-api-types/primary-data'
 import { Coin } from '../resources/coin/coin'
-import { Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import { concatAll, map } from 'rxjs/operators'
 
 @Injectable({
@@ -41,8 +41,8 @@ export class InventoryService {
           data: {
             type: 'coin',
             id: '',
-            attributes: coin.attributes
-          }
+            attributes: coin.attributes,
+          },
         },
         {headers: {'Content-Type': 'application/vnd.api+json'}},
       ).pipe(DocumentData()).toPromise()
