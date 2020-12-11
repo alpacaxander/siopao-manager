@@ -17,7 +17,7 @@ export class ConfigService {
 
   loadConfig() {
     return this.http.get(
-      '/assets/config/properties.json'
+      '/config/properties.json'
     ).toPromise().then(
       properties => {
         this._properties = properties
