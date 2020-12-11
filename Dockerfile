@@ -9,7 +9,7 @@ ENV PATH="./node_modules/.bin:$PATH"
 COPY . ./
 RUN ng build
 
-FROM alexanderpaulsell/frontend-eureka-client:version-1.0.0
+FROM alexanderpaulsell/static-server
 
 COPY --from=NODE_BUILDER opt/ng/dist/manager /files
 
