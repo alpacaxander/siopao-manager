@@ -12,5 +12,7 @@ RUN ng build
 FROM alexanderpaulsell/static-server
 
 COPY --from=NODE_BUILDER opt/ng/dist/manager /files
+COPY config.sh /server/config.sh
 
+ENV INVENTORY_URL=localhost
 ENV SPRING_APPLICATION_NAME=manager
