@@ -27,5 +27,6 @@ export class ConfigService {
 }
 
 export interface properties {
-  INVENTORY_URL: string
+  INVENTORY_URL: string,
+  FILES_URL: string,
 }

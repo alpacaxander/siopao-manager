@@ -22,7 +22,7 @@ export class InventoryService {
 
   public products$(): Promise<Product[]> {
     return this.http.get<Document<Product[]>>(
-      this.config.properties.INVENTORY_URL + '/api/v1/product',
+      this.config.properties.INVENTORY_URL + '/product',
     ).pipe(DocumentData()).toPromise()
   }
 
@@ -30,7 +30,7 @@ export class InventoryService {
     if (data.type === 'product') {
       const product = data as Product
       return this.http.post<Product>(
-        this.config.properties.INVENTORY_URL + '/api/v1/product',
+        this.config.properties.INVENTORY_URL + '/product',
         {
           data: product,
         },
@@ -52,7 +52,7 @@ export class InventoryService {
     } else if (data.type === 'image') {
       const image = data as Image
       return this.http.post<string>(
-        'http://localhost:8081/file/',
+        this.config.properties.FILES_URL + '/file/',
         image.attributes.data,
       ).pipe(
         map(
