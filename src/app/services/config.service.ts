@@ -6,9 +6,9 @@ import { HttpClient } from '@angular/common/http'
 })
 export class ConfigService {
 
-  private _properties: any
+  private _properties: properties
 
-  get properties(): any {
+  get properties(): properties {
     return this._properties
   }
 
@@ -16,7 +16,7 @@ export class ConfigService {
   }
 
   loadConfig() {
-    return this.http.get(
+    return this.http.get<properties>(
       '/config/properties.json'
     ).toPromise().then(
       properties => {
@@ -24,5 +24,8 @@ export class ConfigService {
       }
     )
   }
+}
 
+export interface properties {
+  INVENTORY_URL: string
 }

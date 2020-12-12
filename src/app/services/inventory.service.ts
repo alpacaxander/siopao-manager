@@ -8,18 +8,21 @@ import { PrimaryData } from './json-api-types/primary-data'
 import { Coin } from '../resources/coin/coin'
 import { Observable } from 'rxjs'
 import { concatAll, map } from 'rxjs/operators'
+import { ConfigService } from './config.service'
 
 @Injectable({
               providedIn: 'root',
             })
 export class InventoryService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+  ) { }
 
   public products$(): Promise<Product[]> {
     return this.http.get<Document<Product[]>>(
-      'http://localhost:8080/api/v1/product',
+      this.config.properties.INVENTORY_URL + '/api/v1/product',
     ).pipe(DocumentData()).toPromise()
   }
 
@@ -27,7 +30,7 @@ export class InventoryService {
     if (data.type === 'product') {
       const product = data as Product
       return this.http.post<Product>(
-        'http://localhost:8080/api/v1/product',
+        this.config.properties.INVENTORY_URL + '/api/v1/product',
         {
           data: product,
         },
